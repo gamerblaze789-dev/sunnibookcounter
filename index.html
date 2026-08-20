@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SunniBookCounter - Aesthetic Islamic PDF Library</title>
+    <title>SunniBookCounter - Aesthetic Islamic Library</title>
     <style>
         :root {
             --madinah-green: #0A5C36;
@@ -29,7 +30,6 @@
         header h1 {
             margin: 0;
             font-size: 2.5rem;
-            letter-spacing: 1px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
         header p {
@@ -39,91 +39,142 @@
             font-size: 1.1rem;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
-        .welcome-note {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
+        
+        /* Articles Styling */
+        .section-title {
             color: var(--madinah-green);
-            font-weight: 500;
+            border-bottom: 2px solid var(--gold-accent);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            font-size: 1.6rem;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .book-card {
+        .article-card {
             background: white;
-            border-radius: 12px;
-            border-top: 4px solid var(--gold-accent);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
             padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--madinah-green);
         }
-        .book-card:hover {
-            transform: translateY(-5px);
-        }
-        .book-icon {
-            font-size: 3rem;
+        .article-title {
             color: var(--madinah-green);
-            margin-bottom: 1rem;
-        }
-        .book-title {
+            margin-top: 0;
             font-size: 1.3rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+        }
+
+        /* Folder Grid Setup */
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+        .folder-box {
+            background-color: white;
             color: var(--madinah-green);
+            border: 2px solid var(--madinah-green);
+            padding: 1.2rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
-        .book-author {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 1.5rem;
+        .folder-box:hover, .folder-box.active {
+            background-color: var(--madinah-green);
+            color: white;
+            border-color: var(--gold-accent);
         }
-        .btn-group {
+
+        /* Ordered List System */
+        .list-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .book-row {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0.5rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        .book-row:last-child {
+            border-bottom: none;
+        }
+        .book-row:hover {
+            background-color: #fcfbfa;
+        }
+        .book-meta {
+            display: flex;
+            align-items: center;
             gap: 1rem;
         }
-        .btn {
-            flex: 1;
-            padding: 0.6rem 1rem;
+        .order-badge {
+            background-color: #e8f5e9;
+            color: var(--madinah-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(10, 92, 54, 0.1);
+        }
+        .book-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .book-heading {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        .book-writer {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 0.2rem;
+        }
+        .action-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            padding: 0.5rem 0.9rem;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.9rem;
-            transition: background 0.2s;
+            font-size: 0.85rem;
             text-align: center;
         }
-        .btn-read {
-            background-color: transparent;
+        .action-read {
+            border: 1.5px solid var(--madinah-green);
             color: var(--madinah-green);
-            border: 2px solid var(--madinah-green);
         }
-        .btn-read:hover {
+        .action-read:hover {
             background-color: var(--madinah-green);
             color: white;
         }
-        .btn-download {
+        .action-dl {
             background-color: var(--gold-accent);
             color: white;
-            border: 2px solid var(--gold-accent);
+            border: 1.5px solid var(--gold-accent);
         }
-        .btn-download:hover {
+        .action-dl:hover {
             background-color: #bfa030;
             border-color: #bfa030;
-        }
-        footer {
-            background-color: #111;
-            color: #bdc3c7;
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 4rem;
-            border-top: 3px solid var(--gold-accent);
-            font-size: 0.9rem;
         }
     </style>
 </head>
@@ -135,50 +186,83 @@
     </header>
 
     <div class="container">
-        <div class="welcome-note">
-            Welcome to the digital library of Ahle Sunnat Wal Jamaat literature.
+        
+        <!-- 1. HOME ARTICLES SECTION -->
+        <h2 class="section-title">📰 Home Articles & Updates</h2>
+        <div class="article-card">
+            <div class="article-title">Welcome to SunniBookCounter Portal</div>
+            <p>Alhamdulillah, by the grace of Almighty Allah and His Beloved Prophet ﷺ, we have launched this dedicated platform to present authentic Islamic literature for instant online reading and download.</p>
+        </div>
+        <div class="article-card">
+            <div class="article-title">Preserving Pure Knowledge</div>
+            <p>This library platform categorizes work in perfect order. Simply select any folder option below to view the corresponding books sequentially without refreshing your view screen.</p>
         </div>
 
-        <div class="grid">
-            <!-- Book 1 -->
-            <div class="book-card">
-                <div class="book-icon">📖</div>
-                <div class="book-title">Kanzul Iman</div>
-                <div class="book-author">Ala Hazrat Imam Ahmed Raza Khan</div>
-                <div class="btn-group">
-                    <a href="https://archive.org" target="_blank" class="btn btn-read">Read Online</a>
-                    <a href="https://archive.org" class="btn btn-download">Download</a>
-                </div>
-            </div>
-
-            <!-- Book 2 -->
-            <div class="book-card">
-                <div class="book-icon">🕌</div>
-                <div class="book-title">Bahar-e-Shariat</div>
-                <div class="book-author">Mufti Amjad Ali Azami</div>
-                <div class="btn-group">
-                    <a href="https://archive.org" target="_blank" class="btn btn-read">Read Online</a>
-                    <a href="https://archive.org" class="btn btn-download">Download</a>
-                </div>
-            </div>
-
-            <!-- Book 3 -->
-            <div class="book-card">
-                <div class="book-icon">✨</div>
-                <div class="book-title">Hadaik-e-Bakhshish</div>
-                <div class="book-author">Ala Hazrat Imam Ahmed Raza Khan</div>
-                <div class="btn-group">
-                    <a href="https://archive.org" target="_blank" class="btn btn-read">Read Online</a>
-                    <a href="https://archive.org" class="btn btn-download">Download</a>
-                </div>
-            </div>
+        <!-- 2. OPTIONS / FOLDERS CONTAINER -->
+        <h2 class="section-title">📂 Select Library Folder</h2>
+        <div class="folder-grid">
+            <div class="folder-box active" onclick="showFolder('all', event)">📚 All Books</div>
+            <div class="folder-box" onclick="showFolder('aqeedah', event)">🕌 Aqeedah</div>
+            <div class="folder-box" onclick="showFolder('tasawwuf', event)">✨ Tasawwuf</div>
+            <div class="folder-box" onclick="showFolder('fiqh', event)">📜 Hanafi Fiqh</div>
+            <div class="folder-box" onclick="showFolder('hadith', event)">📖 Hadith Books</div>
+            <div class="folder-box" onclick="showFolder('other', event)">📂 Other Books</div>
         </div>
+
+        <!-- 3. DYNAMIC ORDERED BOOKS CONTAINER -->
+        <div class="list-container" id="librarySpace">
+            
+            <!-- Book 1 (Aqeedah Category) -->
+            <div class="book-row" data-folder="aqeedah">
+                <div class="book-meta">
+                    <div class="order-badge">1</div>
+                    <div class="book-details">
+                        <span class="book-heading">Kanzul Iman</span>
+                        <span class="book-writer">Ala Hazrat Imam Ahmed Raza Khan Barelvi</span>
+                    </div>
+                </div>
+                <div class="action-links">
+                    <a href="https://archive.org" target="_blank" class="action-btn action-read">Read</a>
+                    <a href="https://archive.org" class="action-btn action-dl">Download</a>
+                </div>
+            </div>
+
+            <!-- Book 2 (Fiqh Category) -->
+            <div class="book-row" data-folder="fiqh">
+                <div class="book-meta">
+                    <div class="order-badge">2</div>
+                    <div class="book-details">
+                        <span class="book-heading">Bahar-e-Shariat</span>
+                        <span class="book-writer">Mufti Amjad Ali Azami</span>
+                    </div>
+                </div>
+                <div class="action-links">
+                    <a href="https://archive.org" target="_blank" class="action-btn action-read">Read</a>
+                    <a href="https://archive.org" class="action-btn action-dl">Download</a>
+                </div>
+            </div>
+
+            <!-- Book 3 (Tasawwuf Category) -->
+            <div class="book-row" data-folder="tasawwuf">
+                <div class="book-meta">
+                    <div class="order-badge">3</div>
+                    <div class="book-details">
+                        <span class="book-heading">Hadaik-e-Bakhshish</span>
+                        <span class="book-writer">Ala Hazrat Imam Ahmed Raza Khan Barelvi</span>
+                    </div>
+                </div>
+                <div class="action-links">
+                    <a href="https://archive.org" target="_blank" class="action-btn action-read">Read</a>
+                    <a href="https://archive.org" class="action-btn action-dl">Download</a>
+                </div>
+            </div>
+
+            <!-- Book 4 (Hadith Category) -->
+            <div class="book-row" data-folder="hadith">
+                <div class="book-meta">
+                    <div class="order-badge">4</div>
+                    <div class="book-details">
+                        <span class="book-heading">Mirat-ul-Manajih Sharah Mishkat-ul-Masabih</span>
+                        <span class="book-writer">Mufti Ahmad Yaar Khan Naeemi</span>
     </div>
-
-    <footer>
-        <p>&copy; 2026 SunniBookCounter. Free Educational Resource.</p>
-    </footer>
-
-</body>
-  </html>
-              
+                        
